@@ -1,0 +1,23 @@
+body {
+/*   background-image: url("foto1.jpg");*/
+  background-color: #001f1f; 
+  font-family: sans-serif;
+  font-size: 20px;
+  padding: 25px;
+  margin: 0;
+  overflow: auto;
+}
+
+
+
+#container li {
+  margin-bottom: 10px;
+}
+
+#text {
+  color: wheat;
+  position: absolute;
+  top: 30%;
+  right: 35%;
+}
+

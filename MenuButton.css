@@ -1,0 +1,21 @@
+#roundButton {
+  background-color: #07fcaa;
+  margin-bottom: 10px;
+  width: 20vw;
+  height: 60px;
+  font-family: sans-serif;
+  font-size: 20px;
+  border-radius: 7px;
+  /* outline: none; */
+  transition: all .2s cubic-bezier(0, 1.26, .8, 1,28);
+}
+
+#roundButton:hover {
+  background-color: #ffae00;
+  cursor: pointer;
+  transform: scale(1.1, 1.1);
+}
+
+#roundButton:active {
+  background-color: #ffae00;
+}

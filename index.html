@@ -1,15 +1,338 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<title> Сайт Приветствие </title>
-	</head>
-	<body>
-		<div id="container"></div>
-		<h1> приветствие </h1>
-		<p> второй коммит </p>
-		<p> ещё один коммит</p>
-		<!-- <script src="script.js"></script> -->
-	</body>
-	
+
+<head>
+	<meta charset="utf-8" />
+	<title> Сайт Приветствие </title>
+	<script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+	<script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+	<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+	<style> @import "index.css"; </style>
+	<style> @import "Menu.css"; </style>
+	<style> @import "MenuButton.css"; </style>
+</head>
+
+<body>
+<div id="container"> </div>
+<div id="text"> 
+	<h3> ПРИВЕТСТВУЮ, Я</h3>
+	<h1> КОЗЫРЕВ АЛЕКСАНДР</h1>
+	<h3> NOVICE WEB DEVELOPER</h3>	
+</div>
+
+<script type="text/babel">
+
+class MenuContainer extends React.Component {
+	constructor (props) {
+		super(props);
+		this.state = {
+			visible: false,
+			visible2: false,
+			visible3: false
+		};
+		this.toggleMenu0 = this.toggleMenu0.bind(this);
+		this.handleMouseDown0 = this.handleMouseDown0.bind(this);
+		this.toggleMenu = this.toggleMenu.bind(this);
+		this.handleMouseDown = this.handleMouseDown.bind(this);
+		this.toggleMenu2 = this.toggleMenu2.bind(this);
+		this.handleMouseDown2 = this.handleMouseDown2.bind(this);
+		this.toggleMenu3 = this.toggleMenu3.bind(this);
+		this.handleMouseDown3 = this.handleMouseDown3.bind(this);
+	}
+
+	handleMouseDown(e) {
+		this.toggleMenu();
+		e.stopPropagation(); 
+	}
+
+	toggleMenu() { 
+		this.setState ({
+			visible: !this.state.visible 
+		});
+		if (this.state.visible2===true) {
+			this.setState ({
+				visible2: !this.state.visible2 		
+			});
+		}
+		if (this.state.visible3===true) {
+			this.setState ({
+				visible3: !this.state.visible3 		
+			});
+		}
+	}
+
+	handleMouseDown2(e) {
+		this.toggleMenu2();
+		e.stopPropagation();  
+	}
+
+	toggleMenu2() {     
+		this.setState ({
+			visible2: !this.state.visible2 
+		});
+		if (this.state.visible===true) {
+			this.setState ({
+				visible: !this.state.visible 
+			});
+		}
+		if (this.state.visible3===true) {
+			this.setState ({
+				visible3: !this.state.visible3  
+			});
+		}
+	}
+
+	handleMouseDown3(e) {
+		this.toggleMenu3();
+		e.stopPropagation();   
+	}
+
+	toggleMenu3() {     
+		this.setState ({
+			visible3: !this.state.visible3 
+		});
+		if (this.state.visible===true) {
+			this.setState ({
+				visible: !this.state.visible 	
+			});
+		}
+		if (this.state.visible2===true) {
+			this.setState ({
+				visible2: !this.state.visible2 	
+			});
+		}
+	}
+
+	handleMouseDown0(e) {
+		this.toggleMenu0();
+		e.stopPropagation();   
+	}
+
+	toggleMenu0() {     
+		if (this.state.visible===true) {
+			this.setState ({
+				visible: !this.state.visible  
+			});
+		}
+		if (this.state.visible2===true) {
+			this.setState ({
+				visible2: !this.state.visible2 		
+			});
+		}
+		if (this.state.visible3===true) {
+			this.setState ({
+				visible3: !this.state.visible3 		 
+			});
+		}
+	}
+
+	render () {
+		return (
+			<div>
+				<div><HomeButton handleMouseDown0 = {this.handleMouseDown0}/></div>
+				<div><AboutButton handleMouseDown = {this.handleMouseDown}/></div>
+				<div><ContactButton handleMouseDown2 = {this.handleMouseDown2}/></div>
+				<div><AppButton handleMouseDown3 = {this.handleMouseDown3}/></div>
+				<AboutMenu handleMouseDown = {this.handleMouseDown}  
+							menuVisibility={this.state.visible}      />  
+				<ContactMenu handleMouseDown2 = {this.handleMouseDown2}  
+							menuVisibility={this.state.visible2}      /> 
+				<AppMenu handleMouseDown3 = {this.handleMouseDown3}  
+							menuVisibility={this.state.visible3}      /> 			
+				<div></div>
+			</div>
+		);
+	}
+}
+
+
+class AboutMenu extends React.Component {
+	render() {
+		var visibility = 'skryto';  
+		if (this.props.menuVisibility) {  
+			visibility = 'show'; 	
+		}
+		return (
+			<div id='flyoutMenu'
+				onMouseDown={this.props.handleMouseDown}
+				className={visibility}>
+				<h2> Обо мне </h2>
+			</div>
+		);
+	}
+}
+
+
+class ContactMenu extends React.Component {
+	render() {
+		var visibility = 'skryto'; 
+		if (this.props.menuVisibility) {  
+			visibility = 'show'; 
+		}
+		return (
+			<div id='flyoutMenu'
+				onMouseDown={this.props.handleMouseDown2}
+				className={visibility}>
+				<h2> Контактная информация </h2>
+			</div>
+		);
+	}
+}
+
+class AppMenu extends React.Component {
+	render() {
+		var visibility = 'skryto';  
+		if (this.props.menuVisibility) {  
+			visibility = 'show'; 	
+		}
+		return (
+			<div id='flyoutMenu'
+				/* onMouseDown={this.props.handleMouseDown3} */  
+				className={visibility}>
+				<h2> Приложение: 'Твой IP-адрес' </h2>
+				<IPAC />
+			</div>
+		);
+	}
+}
+
+class HomeButton extends React.PureComponent {
+	render () {
+		return (
+			<button id='roundButton'
+				onMouseDown={this.props.handleMouseDown0}> Home </button> 
+		)														  					 
+	}
+}
+
+class AboutButton extends React.PureComponent {
+	render () {
+		return (
+			<button id='roundButton'
+				onMouseDown={this.props.handleMouseDown}> About me </button> 
+		)														  					
+	}
+}
+
+class ContactButton extends React.PureComponent {
+	render () {
+		return (
+			<button id='roundButton'
+				onMouseDown={this.props.handleMouseDown2}> Contact </button> 
+		)														  					 
+	}
+}
+
+class AppButton extends React.PureComponent {
+	render () {
+		return (
+			<button id='roundButton'
+				onMouseDown={this.props.handleMouseDown3}> App </button> 
+		)														  					
+	}
+}
+
+var xhr;
+class IPAC extends React.PureComponent {
+	constructor (props) {
+    	super(props);
+    	this.state = {
+    		ip_address: " "
+    	};
+    	this.processRequest = this.processRequest.bind(this);
+		this.zapusk = this.zapusk.bind(this);
+	}
+
+	zapusk(event) {
+		xhr = new XMLHttpRequest();
+    	xhr.open ('GET', 'https://ipinfo.io/json', true);
+    	xhr.send ();
+    	xhr.addEventListener('readystatechange', this.processRequest, false);
+	}
+
+	processRequest () {
+    	if (xhr.readyState == 4 && xhr.status == 200) {
+    		var response = JSON.parse (xhr.responseText);
+    		this.setState ({
+        	ip_address: response.ip
+    		});
+    	}
+	}
+  
+	render () {
+		var compaStyle = {
+			margin: 50,
+			padding: 20,
+			backgroundColor: '#ffc53a',
+			width: 400,
+			height: 200,
+			borderRadius: 10,
+			textAlign: 'center'
+		}
+    	return (
+    		<div style={compaStyle}> 
+				<MyButton clickTransfer={this.zapusk} />
+				<Label transferState={this.state.ip_address}/>
+	  		</div>
+    	);
+  	}
+};
+
+class MyButton extends React.PureComponent {
+	render () {
+		var buttonStyle = {
+			marginTop: 40,
+			fontSize: '1em',
+			width: 350,
+			height: 40,
+			fontFamily: 'sans-serif',
+			color: '#333',
+			fontWeight: 'bold',
+			lineHeight: '3px',
+			backgroundColor: '#07fcaa',
+			borderRadius: '5px'
+
+		};
+		return (
+			<button onClick={this.props.clickTransfer} style={buttonStyle}>
+			нажми и узнаешь свой IP-адрес 
+			</button> 
+		);
+	};
+}
+
+class Label extends React.PureComponent {
+	render () {
+		var labelStyle = {
+			margin:40,
+			marginTop: 50,
+			border: 2,
+			padding: 10,
+			fontSize: '1em',
+			width: 300,
+			height: 16,
+			fontFamily: 'sans-serif',
+			color: '#333',
+			fontWeight: 'bold',
+			borderRadius: 5,
+			backgroundColor: '#ffee11',
+			borderColor: '#333'
+		};
+		return (
+			<div  style={labelStyle}>
+			   {this.props.transferState}
+			</div> 
+		);
+	};
+}
+
+ReactDOM.render ( 
+	<MenuContainer />
+	,
+	document.querySelector("#container") 
+); 
+
+</script>
+</body>
 </html>
